@@ -8,46 +8,29 @@ class App extends Component {
     super();
 
     this.state = {
-      name: { firstName: 'Tien', lastName: 'Dao' },
-      school: 'Fanshawe college',
+      pokemons: [
+        {
+          name: 'Yveltal',
+        },
+        {
+          name: 'Reshiram',
+        },
+        {
+          name: 'Solgaleo',
+        },
+        {
+          name: 'Zekrom',
+        },
+      ],
     };
   }
 
   render() {
     return (
       <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <p>
-            Hi {this.state.name.firstName} {this.state.name.lastName}, I am a
-            student at {this.state.school}
-          </p>
-          <button
-            onClick={() => {
-              //Shallow merge object into current state and give new state object
-              //Update the state to a different object for re-render
-              this.setState(
-                (state, props) => {
-                  return {
-                    name: { firstName: 'Iron', lastName: 'man' },
-                  };
-                },
-                //Callback function that will run only the above function is done
-                //When the state is fully updated
-                () => {
-                  console.log(this.state);
-                }
-              );
-              //the shallow merge happens asynchronous so it is still the old version
-              // console.log(this.state);
-              //React will batch these different sets of state calls
-              //so that it can determine the most optimal strategy for re-rendering the website
-              //React will stack changes together and find the more optimal way instead of updating it isolate and independently
-            }}
-          >
-            Change name
-          </button>
-        </header>
+        {this.state.pokemons.map((pokemon) => {
+          return <h1>{pokemon.name}</h1>;
+        })}
       </div>
     );
   }
