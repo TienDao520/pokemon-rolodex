@@ -34,7 +34,7 @@ class App extends Component {
         // console.log(unique);
         return unique;
       })
-      .then((unique) => {
+      .then((unique) =>
         this.setState(
           () => {
             return { pokemons: unique };
@@ -42,8 +42,8 @@ class App extends Component {
           () => {
             console.log(this.state);
           }
-        );
-      });
+        )
+      );
   }
 
   render() {
