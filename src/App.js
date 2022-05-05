@@ -26,9 +26,20 @@ class App extends Component {
             onClick={() => {
               //Shallow merge object into current state and give new state object
               //Update the state to a different object for re-render
-              this.setState({ name: { firstName: 'Iron', lastName: 'man' } });
+              this.setState(
+                (state, props) => {
+                  return {
+                    name: { firstName: 'Iron', lastName: 'man' },
+                  };
+                },
+                //Callback function that will run only the above function is done
+                //When the state is fully updated
+                () => {
+                  console.log(this.state);
+                }
+              );
               //the shallow merge happens asynchronous so it is still the old version
-              console.log(this.state);
+              // console.log(this.state);
               //React will batch these different sets of state calls
               //so that it can determine the most optimal strategy for re-rendering the website
               //React will stack changes together and find the more optimal way instead of updating it isolate and independently
