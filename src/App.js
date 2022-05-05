@@ -8,28 +8,54 @@ class App extends Component {
     super();
 
     this.state = {
-      pokemons: [
-        {
-          name: 'Yveltal',
-        },
-        {
-          name: 'Reshiram',
-        },
-        {
-          name: 'Solgaleo',
-        },
-        {
-          name: 'Zekrom',
-        },
-      ],
+      pokemons: [],
     };
+    console.log('1');
+  }
+
+  componentDidMount() {
+    console.log('3');
+    fetch('https://pogoapi.net/api/v1/pokemon_rarity.json')
+      .then((response) => response.json())
+      .then((pokemon) => {
+        const uniqueIds = [];
+
+        const unique = pokemon.Legendary.filter((element) => {
+          const isDuplicate = uniqueIds.includes(element.pokemon_id);
+
+          if (!isDuplicate) {
+            uniqueIds.push(element.pokemon_id);
+
+            return true;
+          }
+
+          return false;
+        });
+        // console.log(unique);
+        return unique;
+      })
+      .then((unique) => {
+        this.setState(
+          () => {
+            return { pokemons: unique };
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
+      });
   }
 
   render() {
+    console.log('2');
     return (
       <div className='App'>
         {this.state.pokemons.map((pokemon) => {
-          return <h1>{pokemon.name}</h1>;
+          return (
+            <div key={pokemon.pokemon_id}>
+              <h1>{pokemon.pokemon_name}</h1>
+            </div>
+          );
         })}
       </div>
     );
